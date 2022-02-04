@@ -46,4 +46,4 @@ file:write("hello!")
 
 file:close()
 
-krux.RemoveAll("hello/")
+krux.rmall("hello/")
