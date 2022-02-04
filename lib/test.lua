@@ -74,3 +74,13 @@ krux.symlink("symlink.txt", "symlink-copy.txt")
 
 assert(krux.exists("symlink-copy.txt"))
 
+print("Your operating system is " .. krux.uname()) -- Utilize krux.uname() (NEW)
+
+-- Krux also has a built-in memory interface.
+-- you need to enable non-safe memory operations, similar to MemoryIOlib from Kux.
+
+krux.tickMemoryLua()
+
+krux.palloc(6, "Hello!")
+
+krux.untickMemoryLua()

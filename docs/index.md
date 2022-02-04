@@ -95,3 +95,21 @@ Create a symlink from src to dest.
 > Different POSIX standards handle this differently.
 
 This function returns the name of the Operating system krux was built for.
+
+### [UNSAFE] krux.tickMemoryLua()
+
+> Warning: memory functions override Lua's base memory handling.
+> Only use memory functions if you know what you are doing.
+
+Flips the "UnsafeMemsetsAllowed" boolean.
+
+### [UNSAFE] krux.palloc(num, string)
+
+> This function allocates memory, only use if you know what you're doing.
+> This destroys the barrier from the `print()` function builtin.
+
+Allocate memory and print the "string".
+
+### krux.untickMemoryLua()
+
+Flips the "UnsafeMemsetsAllowed" boolean back to false.

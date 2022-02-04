@@ -16,6 +16,8 @@ namespace fs = std::filesystem;
 
 #define KRUX_API(x) static int x(lua_State *L)
 
+bool UnsafeMemsetsallowed = false;
+
 KRUX_API(krux_cpfs) {
     if (std::ifstream(luaL_checkstring(L, 1))) {
         std::cout << "krux: file/folder exists\n";
@@ -24,6 +26,33 @@ KRUX_API(krux_cpfs) {
         fs::copy(luaL_checkstring(L, 1), luaL_checkstring(L, 2));
         return(1);
     }
+}
+
+KRUX_API(krux_tickMemoryBasedLua) {
+    UnsafeMemsetsallowed = true;
+    return 1;
+}
+
+KRUX_API(krux_untickMemoryBasedLua) {
+    UnsafeMemsetsallowed = false;
+    return 1;
+}
+
+
+
+KRUX_API(krux_allocprint) {
+     if (UnsafeMemsetsallowed) {
+        auto memory = malloc(sizeof luaL_checkinteger(L, 1));
+
+        printf("%s", luaL_checkstring(L, 2));
+
+        free(memory);
+    }
+    else {
+        luaL_error(L, "FastPrint() failed!\nwhat(): Universal C API not allowed\n\nRETURN CODE(): 0x0002");
+        return -1;
+    }
+    return 1;
 }
 
 KRUX_API(krux_mkdir) {
@@ -76,7 +105,7 @@ KRUX_API(krux_uname) {
 #ifdef __CYGWIN__
     lua_pushstring(L, "Cygwin");
 #elif __linux__
-    lua_pushstring(L, "Linux");
+    lua_pushstring(L, "Linux-based");
 #elif __unix__
     lua_pushstring(L, "Unix-based");
 #endif
@@ -115,6 +144,9 @@ KRUX_API(krux_usingrl) {
 #endif
 
 static const luaL_Reg krux[] = {
+  {"palloc", krux_allocprint},
+  {"tickMemoryLua", krux_tickMemoryBasedLua},
+  {"untickMemoryLua", krux_untickMemoryBasedLua},
   {"cp", krux_cpfs},
   {"exists", krux_exists},
   {"getcwd", krux_getcwd},
