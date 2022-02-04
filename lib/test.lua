@@ -84,3 +84,42 @@ krux.tickMemoryLua()
 krux.palloc(6, "Hello!")
 
 krux.untickMemoryLua()
+
+-- Print each directory entry
+
+-- print(krux.entries("."))
+
+-- This is a basic implementation of the "Split" function for parsing files
+
+function lsplit(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
+function split(string, d)
+    local tblt = {}
+    local lns = lsplit(string, d)
+    i = 0
+    -- works!
+
+    for _,V in ipairs(lns) do
+        tblt[i] = V;
+        i = i + 1
+    end
+    return tblt
+end
+
+-- Now we're going to get a parseable entry string.
+
+local ps = krux.parseentries(".")
+
+local files = split(ps, "/")
+
+print(files[3]) -- test.lua
+
+krux.rm("symlink.txt")
+krux.rm("symlink-copy.txt")
+

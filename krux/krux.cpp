@@ -143,6 +143,25 @@ KRUX_API(krux_usingrl) {
 }
 #endif
 
+
+// This is a parseable string.
+KRUX_API(krux_returndir) {
+    // lua_newtable(L);
+// l_pushtablestring(L, "fname", "john");
+// l_pushtablestring(L, "lname", "stewart");
+    std::string m = "";
+
+    for (const auto& a : std::filesystem::directory_iterator(luaL_checkstring(L, 1))) {
+        m += a.path().string() + "/";
+    }
+
+    lua_pushstring(L, m.c_str());
+
+    // lua_pushglobaltable(L);
+
+    return 1;
+}
+
 static const luaL_Reg krux[] = {
   {"palloc", krux_allocprint},
   {"tickMemoryLua", krux_tickMemoryBasedLua},
@@ -156,6 +175,7 @@ static const luaL_Reg krux[] = {
   {"addhistory", krux_addhistory},
   {"usingrl", krux_usingrl},
 #endif
+  {"parseentries", krux_returndir},
   {"rmall", krux_rma},
   {"rm", krux_rm},
   {"sleep", krux_sleep},
