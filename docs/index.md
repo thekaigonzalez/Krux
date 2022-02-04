@@ -82,3 +82,10 @@ Remove a file, or a folder (recursively)
 > Cygwin is required to run functions like this.
 
 Uses the unistd.h SLEEP function to delay functionality for `secs` second(s).
+
+### krux.symlink(src, dest)
+
+> This function is implemented differently on different POSIX standards, please check your version KRUX
+> is built for, the functionality here may not be the same.
+
+Create a symlink from src to dest.

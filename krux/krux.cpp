@@ -71,6 +71,11 @@ KRUX_API(krux_getcwd) {
     lua_pushstring(L, std::filesystem::current_path().c_str());
     return 1;
 }
+
+KRUX_API(krux_symlink) {
+    std::filesystem::create_symlink(luaL_checkstring(L, 1), luaL_checkstring(L, 2));
+    return 1;
+}
 #ifdef KRUX_READLINE_API
 KRUX_API(krux_read) {
     lua_pushstring(L, readline(luaL_checkstring(L, 1)));
@@ -101,6 +106,7 @@ static const luaL_Reg krux[] = {
   {"rmall", krux_rma},
   {"rm", krux_rm},
   {"sleep", krux_sleep},
+  {"symlink", krux_symlink},
   {NULL, NULL}
 };
 

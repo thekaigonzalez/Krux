@@ -63,3 +63,14 @@ if krux.usingrl ~= nil then
     -- Send another read prompt - discard value!
     krux.read("> ")
 end
+
+local file = io.open("symlink.txt", "w")
+
+file:write("hello!")
+
+file:close()
+
+krux.symlink("symlink.txt", "symlink-copy.txt")
+
+assert(krux.exists("symlink-copy.txt"))
+
