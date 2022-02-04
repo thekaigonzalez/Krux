@@ -72,8 +72,8 @@ static const luaL_Reg krux[] = {
   {"exists", krux_exists},
   {"getcwd", krux_getcwd},
   {"mkdir", krux_mkdir},
+  {"rmall", krux_rma},
   {"rm", krux_rm},
-  {"RemoveAll", krux_rma},
   {"sleep", krux_sleep},
   {NULL, NULL}
 };
