@@ -72,6 +72,18 @@ KRUX_API(krux_getcwd) {
     return 1;
 }
 
+KRUX_API(krux_uname) {
+#ifdef __CYGWIN__
+    lua_pushstring(L, "Cygwin");
+#elif __linux__
+    lua_pushstring(L, "Linux");
+#elif __unix__
+    lua_pushstring(L, "Unix-based");
+#endif
+    return 1;
+}
+
+
 KRUX_API(krux_symlink) {
     if (!std::ifstream(luaL_checkstring(L, 2))) {
         if (std::ifstream(luaL_checkstring(L, 1))) {
@@ -116,6 +128,7 @@ static const luaL_Reg krux[] = {
   {"rm", krux_rm},
   {"sleep", krux_sleep},
   {"symlink", krux_symlink},
+  {"uname", krux_uname},
   {NULL, NULL}
 };
 

@@ -89,3 +89,9 @@ Uses the unistd.h SLEEP function to delay functionality for `secs` second(s).
 > is built for, the functionality here may not be the same.
 
 Create a symlink from src to dest.
+
+### [BUILD] krux.uname()
+
+> Different POSIX standards handle this differently.
+
+This function returns the name of the Operating system krux was built for.
