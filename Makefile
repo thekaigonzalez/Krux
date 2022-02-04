@@ -13,9 +13,9 @@
 # limitations under the License.
 OUT= krux.so
 
-UNAME:=$(shell uname -s)
+UNAME:=$(shell uname -o)
 
-ifeq ($(UNAME_S), CYGWIN_NT-*)
+ifeq ($(UNAME_S), Cygwin)
     OUT=krux.dll
 endif
 all:
