@@ -19,6 +19,8 @@ UNAME:=$(shell uname -o)
 
 FLAGS=
 
+CPP=g++
+
 ifeq ($(UNAME), Cygwin)
     OUT:=krux.dll
 endif
@@ -26,5 +28,6 @@ endif
 ifeq ($(SPECIAL_READLINE_API), yes)
     FLAGS += -lreadline -DKRUX_READLINE_API
 endif
+
 all:
-	g++ krux/krux.cpp $(FLAGS) -llua -fPIC -shared -o lib/$(OUT)
+	$(CPP) krux/krux.cpp $(FLAGS) -llua -fPIC -shared -o lib/$(OUT)
