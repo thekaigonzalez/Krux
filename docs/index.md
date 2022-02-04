@@ -112,6 +112,8 @@ Allocate memory and print the "string".
 
 ### krux.untickMemoryLua()
 
+> This DISABLES any usage of memory functions, and warning messages can be thrown.
+
 Flips the "UnsafeMemsetsAllowed" boolean back to false.
 
 ### krux.parseentries(dir)
