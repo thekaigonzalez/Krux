@@ -121,5 +121,5 @@ local files = split(ps, "/")
 print(files[3]) -- test.lua
 
 krux.rm("symlink.txt")
-krux.rm("symlink-copy.txt")
+krux.rmall("symlink-copy.txt")
 
