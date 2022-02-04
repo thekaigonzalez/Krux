@@ -92,11 +92,11 @@ krux.untickMemoryLua()
 -- This is a basic implementation of the "Split" function for parsing files
 
 function lsplit(s, delimiter)
-    result = {};
+    result = {}
     for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
+        table.insert(result, match)
     end
-    return result;
+    return result
 end
 
 function split(string, d)
