@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+OUT= krux.so
 
+UNAME:=$(shell uname -s)
+
+ifeq ($(UNAME_S), CYGWIN_NT-*)
+    OUT=krux.dll
+endif
 all:
-	g++ krux/krux.cpp -llua -fPIC -shared -o lib/krux.so
+	g++ krux/krux.cpp -llua -fPIC -shared -o lib/$(OUT)
