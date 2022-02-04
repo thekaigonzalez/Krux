@@ -73,7 +73,16 @@ KRUX_API(krux_getcwd) {
 }
 
 KRUX_API(krux_symlink) {
-    std::filesystem::create_symlink(luaL_checkstring(L, 1), luaL_checkstring(L, 2));
+    if (!std::ifstream(luaL_checkstring(L, 2))) {
+        if (std::ifstream(luaL_checkstring(L, 1))) {
+            std::filesystem::create_symlink(luaL_checkstring(L, 1), luaL_checkstring(L, 2));
+        } else {
+            std::cout << "krux: error: symlink / file exists\n";
+        }
+    } else {
+        std::cout << "krux: error: file exists.\n";
+    }
+
     return 1;
 }
 #ifdef KRUX_READLINE_API
