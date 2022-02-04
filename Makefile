@@ -15,7 +15,7 @@ OUT=krux.so
 
 UNAME:=$(shell uname -o)
 
-ifeq ($(UNAME_S), Cygwin)
+ifeq ($(UNAME), Cygwin)
     OUT:=krux.dll
 endif
 all:
