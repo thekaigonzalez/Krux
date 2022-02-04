@@ -7,6 +7,11 @@
 #include <filesystem>
 #include <unistd.h>
 
+#ifdef KRUX_READLINE_API
+    #include <readline/readline.h>
+    #include <readline/history.h>
+#endif
+
 namespace fs = std::filesystem;
 
 #define KRUX_API(x) static int x(lua_State *L)
@@ -66,12 +71,33 @@ KRUX_API(krux_getcwd) {
     lua_pushstring(L, std::filesystem::current_path().c_str());
     return 1;
 }
+#ifdef KRUX_READLINE_API
+KRUX_API(krux_read) {
+    lua_pushstring(L, readline(luaL_checkstring(L, 1)));
+    return 1;
+}
+
+KRUX_API(krux_addhistory) {
+    add_history(luaL_checkstring(L, 1));
+    return 1;
+}
+
+// Placeholder for check.
+KRUX_API(krux_usingrl) {
+    return 1;
+}
+#endif
 
 static const luaL_Reg krux[] = {
   {"cp", krux_cpfs},
   {"exists", krux_exists},
   {"getcwd", krux_getcwd},
   {"mkdir", krux_mkdir},
+#ifdef KRUX_READLINE_API
+  {"read", krux_read},
+  {"addhistory", krux_addhistory},
+  {"usingrl", krux_usingrl},
+#endif
   {"rmall", krux_rma},
   {"rm", krux_rm},
   {"sleep", krux_sleep},

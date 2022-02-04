@@ -13,10 +13,18 @@
 # limitations under the License.
 OUT=krux.so
 
+SPECIAL_READLINE_API=
+
 UNAME:=$(shell uname -o)
+
+FLAGS=
 
 ifeq ($(UNAME), Cygwin)
     OUT:=krux.dll
 endif
+
+ifeq ($(SPECIAL_READLINE_API), yes)
+    FLAGS += -lreadline -DKRUX_READLINE_API
+endif
 all:
-	g++ krux/krux.cpp -llua -fPIC -shared -o lib/$(OUT)
+	g++ krux/krux.cpp $(FLAGS) -llua -fPIC -shared -o lib/$(OUT)

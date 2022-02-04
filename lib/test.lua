@@ -47,3 +47,19 @@ file:write("hello!")
 file:close()
 
 krux.rmall("hello/")
+
+if krux.usingrl ~= nil then
+    print("Type anything into the box (krux.read)")
+    local input = krux.read("> ")
+    print("Here's your input: " .. input)
+
+    krux.sleep(1)
+
+    print("I've added it to your history, try typing UP-ARROW this time.")
+    
+    -- Add it to history
+    krux.addhistory(input)
+
+    -- Send another read prompt - discard value!
+    krux.read("> ")
+end
