@@ -19,7 +19,7 @@ namespace fs = std::filesystem;
 bool UnsafeMemsetsallowed = false;
 
 KRUX_API(krux_cpfs) {
-    if (std::ifstream(luaL_checkstring(L, 1))) {
+    if (std::ifstream(luaL_checkstring(L, 2))) {
         std::cout << "krux: file/folder exists\n";
         return(0);
     } else {
