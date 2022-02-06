@@ -31,3 +31,6 @@ endif
 
 all:
 	$(CPP) krux/krux.cpp $(FLAGS) -llua -fPIC -shared -o lib/$(OUT)
+
+clean:
+	rm out -r
