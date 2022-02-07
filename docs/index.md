@@ -118,41 +118,6 @@ Flips the "UnsafeMemsetsAllowed" boolean back to false.
 
 ### krux.parseentries(dir)
 
-> NOT WHAT YOU EXPECT!
-> This function returns a parsable string separated by the only character not allowed in file names (/)
-> You can parse by using the Krux split function, found in test.lua.
+> If you want, you can use the "extras" extension that contains "krux.Split()" function.
 
 Returns a parsable string containing all of the filesystem files (including . and ..).
-
-A basic implementation of a parser is as follows:
-
-```lua
-
-function lsplit(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function split(string, d)
-    local tblt = {}
-    local lns = lsplit(string, d)
-    i = 0
-    -- works!
-
-    for _,V in ipairs(lns) do
-        tblt[i] = V;
-        i = i + 1
-    end
-    return tblt
-end
-
--- Now we're going to get a parseable entry string.
-
-local ps = krux.parseentries(".")
-
-local files = split(ps, "/")
-
-```
